@@ -488,13 +488,10 @@
   <div class="container">
     <div class="eyebrow">Alpha School · East Hampton · Summer 2026</div>
     <h1>Alpha <span class="amp">&amp;</span> Odyssey</h1>
-    <div class="sub">Nine weeks of craft, sport, and real achievement — preview everything your child will do this summer.</div>
+    <div class="sub">A preview of your child's summer.</div>
     <div class="tag-row">
       <span class="tag strong">9 Weeks · June 23 – Aug 22</span>
       <span class="tag">Ages K–8th</span>
-      <span class="tag">Weekly Workshops</span>
-      <span class="tag wine">Physical Challenges</span>
-      <span class="tag">53 Mastery Side Quests</span>
     </div>
   </div>
 </header>
@@ -503,20 +500,10 @@
   <div class="container intro-grid">
     <div>
       <div class="kicker">For Parents</div>
-      <h2>Here's what your child's summer actually looks like.</h2>
+      <h2>Nine weeks. Nine chapters of the Odyssey. One real test every Friday.</h2>
     </div>
     <div>
-      <p class="drop">Every week at Alpha Odyssey follows a chapter of Homer's <em>Odyssey</em>. Your child's day starts with a Limitless Launch assembly and Alpha's 2-hour learning block. After lunch, they shift to the physical challenge (45 min) — beach soccer, ninja warrior courses, surfing, capture the flag — then spend the rest of the afternoon in the weekly craft workshop: Every Friday, both the workshop and the physical challenge end with a real pass/fail test. No grades on a screen. A boat that floats or sinks. A bowl that holds water or doesn't. A macaron with feet or without. You'll see the results when they bring it home.</p>
-      <p>Beyond the structured schedule, your child can pursue over fifty voluntary mastery side quests during breaks, lunch, and transitions — everything from tying knots and identifying constellations to whittling cutlery and sharpening a knife on a whetstone. Each quest has clear pass criteria and earns a mark on the camp Mastery Board. The day wraps at 4 PM with Shoutouts — a recognition circle where standout effort gets called out by name.</p>
-      <p>Every workshop is led by trained Alpha guides, with outside experts brought in for the most specialized disciplines — a ceramicist for wheel-throwing, a sushi chef for omakase, a woodworking expert from Fluo for boat building and the Trojan Horse, a certified archery instructor for archery, a blacksmith for forging. Your child will never be "taught" by someone who is learning alongside them.</p>
-      <p>This page shows every workshop, physical challenge, and side quest your child can experience this summer. Use the filters below to see just your child's level, or tap any card to see the full details — day-by-day plan, what they'll make, and the exact test they'll need to pass on Friday.</p>
-
-      <div class="meander"></div>
-      <div class="legend">
-        <div class="item"><span class="dot wk"></span><span><span class="l">Weekly Workshop</span><span class="d">Craft, build, perform — afternoon, ~2 hrs/day. A finished product goes home Friday.</span></span></div>
-        <div class="item"><span class="dot phy"></span><span><span class="l">Physical Challenge</span><span class="d">Sport, water, adventure — afternoons, 45 min/day. Friday is test day.</span></span></div>
-        <div class="item"><span class="dot sp"></span><span><span class="l">Side Quest</span><span class="d">Voluntary mastery challenges pursued during free time — tested when your child feels ready.</span></span></div>
-      </div>
+      <p class="drop">Each week your child takes on a new craft and a new physical challenge — led by Alpha guides with outside experts (woodworker, ceramicist, sushi chef, archery instructor) for the specialized work. Friday is pass/fail. Tap any week below to see what they'll do and what they'll bring home.</p>
     </div>
   </div>
 </section>
@@ -555,8 +542,8 @@
   <div class="container">
     <div class="sq-intro">
       <div class="kicker">Mastery Side Quests</div>
-      <h2>53 skills your child can chase on their own.</h2>
-      <p>Between the scheduled workshops, your child has access to over fifty voluntary mastery challenges — from stone skipping and knot tying to Rubik's Cube speed-solving, calligraphy in ancient Greek, and sharpening a knife on a whetstone. They choose which quests to pursue, practice during free time, and test only when they feel ready. Each completed quest earns a bead or badge on the camp Mastery Board. Filter by your child's level below to see what's available to them.</p>
+      <h2>53 voluntary skills to chase in free time.</h2>
+      <p>Self-paced challenges your child can pursue between activities — knot tying, Rubik's Cube, stone skipping, calligraphy, knife sharpening, and more. They choose. They test when ready.</p>
     </div>
 
     <div class="sq-tabs" id="sq-tabs" role="tablist"><!-- filled by JS --></div>
@@ -745,61 +732,17 @@ function renderEntryCard(entry) {
     body.appendChild(narrativeEl);
   }
 
-  // Two-column meta — parent-facing (no staffing details)
-  const kv = el("div", { class: "kv" });
-  if (entry.specific_venue) kv.appendChild(kvRow("Venue", entry.specific_venue));
-  if (location) kv.appendChild(kvRow("Location", location + " — " + (isPhysical ? "afternoon · 45 min/day" : "afternoon · ~2 hrs/day")));
-  body.appendChild(sectionH("At a Glance"));
-  body.appendChild(kv);
-
-  // Skills + materials side by side
-  if (skills.length || materials.length) {
-    body.appendChild(sectionH("Life Skills & Materials"));
-    const two = el("div", { class: "twocol" });
-    if (skills.length) {
-      two.appendChild(el("div", {},
-        el("div", { class: "section-h" }, "Life skills learned"),
-        bulletList(skills)
-      ));
-    }
-    if (materials.length) {
-      two.appendChild(el("div", {},
-        el("div", { class: "section-h" }, "Materials"),
-        bulletList(materials)
-      ));
-    }
-    body.appendChild(two);
-  }
-
-  // Day plan
-  if (days.length) {
-    body.appendChild(sectionH("Five-Day Plan"));
-    const ol = el("ol", { class: "days" });
-    days.forEach(d => {
-      const li = el("li", {},
-        el("div", {},
-          d.title ? el("div", { class: "d-title" }, d.title) : null,
-          el("div", { class: "d-detail" }, d.detail || "")
-        )
-      );
-      ol.appendChild(li);
-    });
-    body.appendChild(ol);
-  }
-
-  // Pass test
+  // Parent-facing: only show the Friday test and a single conversation hook.
   if (entry.pass_test) {
     const pb = el("div", { class: "pass-box" });
-    pb.appendChild(el("div", { class: "pass-l" }, "The Friday Test — Pass / Fail"));
+    pb.appendChild(el("div", { class: "pass-l" }, "Friday Test"));
     pb.appendChild(el("p", {}, entry.pass_test));
     body.appendChild(pb);
   }
 
-  // Hooks
-  if (entry.kid_hook || entry.parent_hook) {
+  if (entry.parent_hook) {
     const hooks = el("div", { class: "hooks" });
-    if (entry.kid_hook)    hooks.appendChild(hookCard("Why kids beg to do it", entry.kid_hook));
-    if (entry.parent_hook) hooks.appendChild(hookCard("Why parents talk about it", entry.parent_hook));
+    hooks.appendChild(hookCard("Why this matters", entry.parent_hook));
     body.appendChild(hooks);
   }
 

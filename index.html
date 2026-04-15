@@ -506,14 +506,14 @@
       <h2>Here's what your child's summer actually looks like.</h2>
     </div>
     <div>
-      <p class="drop">Every week at Alpha Odyssey follows a chapter of Homer's <em>Odyssey</em>. Your child's morning starts with Alpha's 2-hour learning block and a Limitless Launch assembly. Afternoons rotate between a hands-on craft workshop and a physical challenge — and every Friday, both end with a real pass/fail test. No grades on a screen. A boat that floats or sinks. A bowl that holds water or doesn't. A macaron with feet or without. You'll see the results when they bring it home.</p>
+      <p class="drop">Every week at Alpha Odyssey follows a chapter of Homer's <em>Odyssey</em>. Your child's day starts with a Limitless Launch assembly, then moves into the weekly craft workshop all morning — building boats, tempering chocolate, throwing pottery, forging steel. After lunch, they shift to the physical challenge: beach soccer, ninja warrior courses, surfing, capture the flag. Every Friday, both the workshop and the physical challenge end with a real pass/fail test. No grades on a screen. A boat that floats or sinks. A bowl that holds water or doesn't. A macaron with feet or without. You'll see the results when they bring it home.</p>
       <p>Beyond the structured schedule, your child can pursue over fifty voluntary mastery side quests during breaks, lunch, and transitions — everything from tying knots and identifying constellations to whittling cutlery and sharpening a knife on a whetstone. Each quest has clear pass criteria and earns a mark on the camp Mastery Board. The day wraps at 4 PM with Shoutouts — a recognition circle where standout effort gets called out by name.</p>
       <p>This page shows every workshop, physical challenge, and side quest your child can experience this summer. Use the filters below to see just your child's level, or tap any card to see the full details — day-by-day plan, what they'll make, and the exact test they'll need to pass on Friday.</p>
 
       <div class="meander"></div>
       <div class="legend">
-        <div class="item"><span class="dot wk"></span><span><span class="l">Weekly Workshop</span><span class="d">Craft, build, perform — ~2 hrs each afternoon. A finished product goes home Friday.</span></span></div>
-        <div class="item"><span class="dot phy"></span><span><span class="l">Physical Challenge</span><span class="d">Sport, water, adventure — 45 min each afternoon. Friday is test day.</span></span></div>
+        <div class="item"><span class="dot wk"></span><span><span class="l">Weekly Workshop</span><span class="d">Craft, build, perform — mornings, ~2 hrs/day. A finished product goes home Friday.</span></span></div>
+        <div class="item"><span class="dot phy"></span><span><span class="l">Physical Challenge</span><span class="d">Sport, water, adventure — afternoons, 45 min/day. Friday is test day.</span></span></div>
         <div class="item"><span class="dot sp"></span><span><span class="l">Side Quest</span><span class="d">Voluntary mastery challenges pursued during free time — tested when your child feels ready.</span></span></div>
       </div>
     </div>
@@ -730,7 +730,7 @@ function renderEntryCard(entry) {
   if (entry.guide_can_lead !== undefined) {
     kv.appendChild(kvRow("Alpha Guide Can Lead?", entry.guide_can_lead ? "Yes — with specialist support as noted." : "No — specialist leads all instruction."));
   }
-  if (location) kv.appendChild(kvRow("Location", location + " — " + (isPhysical ? "afternoon · 45 min/day" : "afternoon · ~2 hrs/day")));
+  if (location) kv.appendChild(kvRow("Location", location + " — " + (isPhysical ? "afternoon · 45 min/day" : "morning · ~2 hrs/day")));
   body.appendChild(sectionH("At a Glance"));
   body.appendChild(kv);
 
@@ -836,7 +836,7 @@ function renderWeek(w) {
     wrap.appendChild(el("div", { class: "track" },
       el("div", { class: "track-label" },
         el("span", { class: "roman" }, "I"),
-        el("span", { class: "name" }, "Weekly Workshops — morning craft"),
+        el("span", { class: "name" }, "Weekly Workshops — morning"),
         el("span", { class: "rule" })
       ),
       renderGrid(weekly)

@@ -497,13 +497,109 @@
 </header>
 
 <section class="intro">
-  <div class="container intro-grid">
-    <div>
-      <div class="kicker">For Parents</div>
-      <h2>Boats that actually sail. Pottery they actually keep. Bonfires on Main Beach. A bead added to their necklace every Friday they show up and crush it.</h2>
-    </div>
-    <div>
-      <p class="drop">Nine weeks. Nine chapters of Homer's Odyssey. Each one a brand-new craft and a brand-new physical adventure — taught by Alpha guides alongside real woodworkers, ceramicists, sushi chefs, and surf instructors. Tap any week below to see what your child will build, bring home, and never stop talking about.</p>
+  <style>
+    /* Celebratory intro — single column manifesto layout */
+    .intro-celebrate {
+      max-width: 820px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 4px 0;
+    }
+    .intro-celebrate .kicker {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 5px 14px;
+      border: 1px solid var(--rule-light);
+      border-radius: 2px;
+      margin-bottom: 36px;
+      background: rgba(201, 163, 74, 0.05);
+    }
+    .intro-celebrate .promises {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 38px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .intro-celebrate .promise {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3.2vw, 36px);
+      line-height: 1.2;
+      color: var(--cream);
+      letter-spacing: -0.005em;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: promise-rise .6s cubic-bezier(.2,.7,.3,1) forwards;
+      padding: 0 8px;
+    }
+    .intro-celebrate .promise::before {
+      content: "◆";
+      color: var(--gold);
+      font-size: 0.4em;
+      margin-right: 16px;
+      vertical-align: 0.32em;
+      opacity: 0.85;
+    }
+    .intro-celebrate .promise.payoff {
+      color: var(--gold);
+      font-style: italic;
+      font-size: clamp(20px, 2.8vw, 32px);
+      line-height: 1.32;
+      max-width: 28ch;
+      margin: 6px auto 0;
+    }
+    .intro-celebrate .promise:nth-child(1) { animation-delay: .12s; }
+    .intro-celebrate .promise:nth-child(2) { animation-delay: .26s; }
+    .intro-celebrate .promise:nth-child(3) { animation-delay: .40s; }
+    .intro-celebrate .promise:nth-child(4) { animation-delay: .58s; }
+    @keyframes promise-rise {
+      to { opacity: 1; transform: none; }
+    }
+    .intro-celebrate .mini-meander {
+      width: 180px;
+      height: 9px;
+      margin: 0 auto 28px;
+      background-image:
+        repeating-linear-gradient(90deg,
+          var(--gold) 0 2px, transparent 2px 8px,
+          var(--gold) 8px 10px, transparent 10px 16px);
+      opacity: 0.55;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .intro-celebrate .lede {
+      max-width: 56ch;
+      margin: 0 auto;
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.62;
+      color: var(--ink-dim);
+      padding: 0 12px;
+    }
+    .intro-celebrate .lede strong {
+      color: var(--cream);
+      font-weight: 400;
+      font-style: normal;
+    }
+  </style>
+
+  <div class="container">
+    <div class="intro-celebrate">
+      <span class="kicker">For Parents</span>
+      <ul class="promises">
+        <li class="promise">Boats that actually sail.</li>
+        <li class="promise">Pottery they actually keep.</li>
+        <li class="promise">Bonfires on Main Beach.</li>
+        <li class="promise payoff">A new bead added to their necklace every Friday they show up and crush it.</li>
+      </ul>
+      <div class="mini-meander"></div>
+      <p class="lede">Nine weeks. Nine chapters of Homer's <strong>Odyssey</strong>. Each one a brand-new craft and a brand-new adventure — taught by Alpha guides alongside real woodworkers, ceramicists, sushi chefs, and surf instructors. Tap any week to see what your child will build, bring home, and never stop talking about.</p>
     </div>
   </div>
 </section>

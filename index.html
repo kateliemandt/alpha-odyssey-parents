@@ -508,6 +508,7 @@
     <div>
       <p class="drop">Every week at Alpha Odyssey follows a chapter of Homer's <em>Odyssey</em>. Your child's day starts with a Limitless Launch assembly and Alpha's 2-hour learning block. After lunch, they shift to the physical challenge (45 min) — beach soccer, ninja warrior courses, surfing, capture the flag — then spend the rest of the afternoon in the weekly craft workshop: Every Friday, both the workshop and the physical challenge end with a real pass/fail test. No grades on a screen. A boat that floats or sinks. A bowl that holds water or doesn't. A macaron with feet or without. You'll see the results when they bring it home.</p>
       <p>Beyond the structured schedule, your child can pursue over fifty voluntary mastery side quests during breaks, lunch, and transitions — everything from tying knots and identifying constellations to whittling cutlery and sharpening a knife on a whetstone. Each quest has clear pass criteria and earns a mark on the camp Mastery Board. The day wraps at 4 PM with Shoutouts — a recognition circle where standout effort gets called out by name.</p>
+      <p>Every workshop is led by trained Alpha guides, with outside experts brought in for the most specialized disciplines — a ceramicist for wheel-throwing, a sushi chef for omakase, a woodworking expert from Fluo for boat building and the Trojan Horse, a certified archery instructor for archery, a blacksmith for forging. Your child will never be "taught" by someone who is learning alongside them.</p>
       <p>This page shows every workshop, physical challenge, and side quest your child can experience this summer. Use the filters below to see just your child's level, or tap any card to see the full details — day-by-day plan, what they'll make, and the exact test they'll need to pass on Friday.</p>
 
       <div class="meander"></div>
@@ -714,22 +715,39 @@ function renderEntryCard(entry) {
   const body = el("div", { class: "card-body" });
 
   if (entry.narrative) {
-    body.appendChild(el("div", {
-      class: "narrative" + (isPhysical ? " physical-n" : "")
-    }, entry.narrative));
+    const narrativeEl = el("div", { class: "narrative" + (isPhysical ? " physical-n" : "") });
+    // Expert prefix for Fluo / specialist-led workshops (parent-facing framing)
+    const specRole = entry.specialist_role || '';
+    let expertLine = '';
+    if (/Fluo/i.test(specRole)) expertLine = 'With a woodworking expert, students will…';
+    else if (/ceramicist/i.test(specRole)) expertLine = 'With a ceramics expert, students will…';
+    else if (/blacksmith/i.test(specRole)) expertLine = 'With a blacksmithing expert, students will…';
+    else if (/sushi/i.test(specRole)) expertLine = 'With a sushi chef, students will…';
+    else if (/pastry/i.test(specRole)) expertLine = 'With a pastry chef, students will…';
+    else if (/chocolatier/i.test(specRole)) expertLine = 'With a chocolatier, students will…';
+    else if (/archery/i.test(specRole)) expertLine = 'With a certified archery instructor, students will…';
+    else if (/surf/i.test(specRole)) expertLine = 'With a certified surf instructor, students will…';
+    else if (/synchron/i.test(specRole)) expertLine = 'With a synchronized swimming coach, students will…';
+    else if (/bookbinder/i.test(specRole)) expertLine = 'With a bookbinding expert, students will…';
+    else if (/fishing guide/i.test(specRole)) expertLine = 'With a fishing expert, students will…';
+    else if (/chef/i.test(specRole) && /ithaca/i.test((entry.title||''))) expertLine = 'With a chef partner, students will…';
+    else if (entry.specialist_needed && specRole) expertLine = 'With an expert instructor, students will…';
+
+    if (expertLine) {
+      const prefix = el("p", {}, expertLine);
+      prefix.style.fontStyle = "italic";
+      prefix.style.color = "var(--gold)";
+      prefix.style.marginBottom = "10px";
+      narrativeEl.appendChild(prefix);
+    }
+    const body_p = el("p", {}, entry.narrative);
+    narrativeEl.appendChild(body_p);
+    body.appendChild(narrativeEl);
   }
 
-  // Two-column meta
+  // Two-column meta — parent-facing (no staffing details)
   const kv = el("div", { class: "kv" });
   if (entry.specific_venue) kv.appendChild(kvRow("Venue", entry.specific_venue));
-  const staffBits = [];
-  if (entry.instructors) staffBits.push(normalizeInstructors(entry.instructors));
-  if (entry.specialist_needed && entry.specialist_role) staffBits.push("Specialist: " + entry.specialist_role);
-  if (entry.guide_note) staffBits.push(entry.guide_note);
-  if (staffBits.length) kv.appendChild(kvRow("Staffing", staffBits.join(" — ")));
-  if (entry.guide_can_lead !== undefined) {
-    kv.appendChild(kvRow("Alpha Guide Can Lead?", entry.guide_can_lead ? "Yes — with specialist support as noted." : "No — specialist leads all instruction."));
-  }
   if (location) kv.appendChild(kvRow("Location", location + " — " + (isPhysical ? "afternoon · 45 min/day" : "afternoon · ~2 hrs/day")));
   body.appendChild(sectionH("At a Glance"));
   body.appendChild(kv);
